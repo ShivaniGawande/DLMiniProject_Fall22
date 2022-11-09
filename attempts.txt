@@ -1,0 +1,34 @@
+Place to tract things we've tried so far
+
+90% is good enough
+95% max
+
+Attempt 1:
+    ResNet-18, with default architecture. Making no changes and using standard SGD.
+    The purpose of this is to have some sort of a baseline to check against
+
+    Result:
+        Can't use this, too many parameters.
+
+Attempt 2:
+    ResNet-18_mod with [1, 1, 1, 1]
+    TrainingAccuracy: ~88
+    TestingAccuracy: ~85 
+
+Attempt 3:
+    ResNet-18_mod with [2, 1, 1, 1] + adding extra linear layer
+    TrainingAccuracy: ~86
+    TestingAccuracy: ~83
+    Epochs: 15
+
+Attempt 4:
+    ResNet-18_mod with [2, 1, 1, 1] + adding two extra linear layers
+    TrainingAccuracy: ~86
+    TestingAccuracy: ~81
+    Epochs: 15
+
+Attempt 5:
+    ResNet-18_mod with [2, 1, 1, 1] + adding two extra linear layers
+    TrainingAccuracy: ~88
+    TestingAccuracy: ~84
+    Epochs: 25
