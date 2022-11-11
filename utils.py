@@ -4,17 +4,20 @@ Mihir Upasani (mu2047@nyu.edu)
 Shivani Gawande
 Fabiha Khalid
 """
-import torch
-from tqdm import tqdm
 import time
+
+import numpy as np
+import torch
 from matplotlib import pyplot as plt
+from tqdm import tqdm
 
 
 class Basics():
 
-    def __init__(self, model, optimizer, criterion, training_dl, testing_dl, validation_dl=None):
+    def __init__(self, model, optimizer, schedule, criterion, training_dl, testing_dl, modelName):
         self.model = model
         self.optimizer = optimizer
+        self.schedule = schedule
         self.criterion = criterion
         self.device = torch.device(
             'cuda') if torch.cuda.is_available() else torch.device('cpu')
@@ -32,7 +35,7 @@ class Basics():
         }
         self.trainingDataLoader = training_dl
         self.testingDataLoader = testing_dl
-        self.validationDataLoader = validation_dl
+        self.modelName = modelName
 
     def __calculateAccuracy(self, y_pred, y):
         top_pred = y_pred.argmax(1, keepdim=True)
@@ -89,6 +92,8 @@ class Basics():
                 # Step 3
                 loss.backward()
                 self.optimizer.step()
+                self.optimizer.zero_grad()
+                # self.schedule.step()
 
                 epoch_loss += loss.item()
                 epoch_acc += acc.item()
@@ -161,4 +166,19 @@ class Basics():
             self.testingHistory["accuracy"].append(testingAccuracy)
 
         if plot_results:
-            pass
+
+            X = np.arange(1, epochs+1)
+
+            plt.figure(1)
+            plt.plot(X, self.trainingHistory['loss'], label='train_loss')
+            plt.plot(X, self.testingHistory['loss'], label='test_loss')
+            plt.legend()
+            plt.savefig("./outputs/" + self.modelName + "LossVsEpochs.jpg")
+
+            plt.figure(2)
+            plt.plot(
+                X, self.trainingHistory['accuracy'], label='train_acc')
+            plt.plot(
+                X, self.testingHistory['accuracy'], label='test_acc')
+            plt.legend()
+            plt.savefig("./outputs/" + self.modelName + "AccVsEpochs.jpg")

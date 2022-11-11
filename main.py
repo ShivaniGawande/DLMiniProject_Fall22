@@ -16,13 +16,13 @@ from utils import Basics
 # Defining constants, based on assignment
 OUTPUT_CLASSES = 10
 MEANS = (0.4914, 0.4822, 0.4465)
-STD_DEV = (sqrt(0.2023), sqrt(0.1994), sqrt(0.2010))
+STD_DEV = (0.2023, 0.1994, 0.2010)
 IO_PROCESSES = 2
 FLIP_PROBABILITY = 0.5
-TRAINING_BATCH_SIZE = 64
+TRAINING_BATCH_SIZE = 32
 TESTING_BATCH_SIZE = 128
-EPOCHS = 5
-LEARNING_RATE = 0.1
+EPOCHS = 20
+LEARNING_RATE = 0.01
 MOMENTUM = 0.9
 WEIGHT_DECAY = 5e-4
 ROOT = "./.data"
@@ -101,9 +101,10 @@ if __name__ == "__main__":
 
     optimizer = optim.SGD(**setParams)
     lossFunction = nn.CrossEntropyLoss()
-
+    # sched = torch.optim.lr_scheduler.OneCycleLR(optimizer, LEARNING_RATE, epochs=EPOCHS,
+                                                # steps_per_epoch=len(trainingDataLoader))
     trainingAbstraction = Basics(
-        model, optimizer, lossFunction, trainingDataLoader, testingDataLoader)
+        model, optimizer, None, lossFunction, trainingDataLoader, testingDataLoader, modelName="Attempt1")
 
     parameters = trainingAbstraction._countParameters()
     print(f"Model has {parameters} parameters")
@@ -111,4 +112,4 @@ if __name__ == "__main__":
     print(f"You have {MAX_PARAMS-parameters} left!")
     summary(model, (3, 32, 32))
 
-    trainingAbstraction.trainEpochs()
+    trainingAbstraction.trainEpochs(EPOCHS)
