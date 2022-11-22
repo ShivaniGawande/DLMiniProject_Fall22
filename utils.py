@@ -93,16 +93,17 @@ class Basics():
                 loss.backward()
                 self.optimizer.step()
                 self.optimizer.zero_grad()
-                # self.schedule.step()
 
                 epoch_loss += loss.item()
                 epoch_acc += acc.item()
                 tqdmObject.set_postfix(accuracy=epoch_acc/len(self.trainingDataLoader),
                                        loss=epoch_loss/len(self.trainingDataLoader))
+            # if self.schedule:
+            #     self.schedule.step()
             endTime = time.time()
 
-        _, trainingSeconds = self.__getTime(startTime, endTime)
-
+        trainingMinutes, trainingSeconds = self.__getTime(startTime, endTime)
+        trainingSeconds += 60 * trainingMinutes
         return epoch_acc/len(self.trainingDataLoader), epoch_loss/len(self.trainingDataLoader), trainingSeconds
 
     def _evaluateModel(self):
@@ -153,9 +154,9 @@ class Basics():
                 epoch)
             testingAccuracy, testingLoss = self._evaluateModel()
             endTime = time.time()
-
-            _, epochSeconds = self.__getTime(startTime, endTime)
-
+            self.schedule.step(trainingAccuracy)
+            epochMinutes, epochSeconds = self.__getTime(startTime, endTime)
+            epochSeconds += epochMinutes*60
             print("TrainingLoss:%.2f|TrainingAccuracy:%.2f|EpochTime:%.2fs|TestingLoss:%.2f|TestingAccuracy:%.2f\n" % (
                 trainingLoss, trainingAccuracy*100, epochSeconds, testingLoss, testingAccuracy*100))
 

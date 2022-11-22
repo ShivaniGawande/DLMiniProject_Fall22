@@ -20,8 +20,8 @@ STD_DEV = (0.2023, 0.1994, 0.2010)
 IO_PROCESSES = 2
 FLIP_PROBABILITY = 0.5
 TRAINING_BATCH_SIZE = 32
-TESTING_BATCH_SIZE = 128
-EPOCHS = 20
+TESTING_BATCH_SIZE = 256
+EPOCHS = 50
 LEARNING_RATE = 0.01
 MOMENTUM = 0.9
 WEIGHT_DECAY = 5e-4
@@ -100,11 +100,15 @@ if __name__ == "__main__":
     }
 
     optimizer = optim.SGD(**setParams)
+    # optimizer = optim.Adam(**setParams)
     lossFunction = nn.CrossEntropyLoss()
     # sched = torch.optim.lr_scheduler.OneCycleLR(optimizer, LEARNING_RATE, epochs=EPOCHS,
-                                                # steps_per_epoch=len(trainingDataLoader))
+    #                                             steps_per_epoch=len(trainingDataLoader))
+    sched = torch.optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer, mode='max', factor=0.5, patience=0)
+
     trainingAbstraction = Basics(
-        model, optimizer, None, lossFunction, trainingDataLoader, testingDataLoader, modelName="Attempt1")
+        model, optimizer, sched, lossFunction, trainingDataLoader, testingDataLoader, modelName="Attempt16")
 
     parameters = trainingAbstraction._countParameters()
     print(f"Model has {parameters} parameters")

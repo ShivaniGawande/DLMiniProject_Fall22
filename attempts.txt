@@ -16,19 +16,146 @@ Attempt 2:
     TestingAccuracy: ~85 
 
 Attempt 3:
-    ResNet-18_mod with [2, 1, 1, 1] + adding extra linear layer
-    TrainingAccuracy: ~86
-    TestingAccuracy: ~83
-    Epochs: 15
+    ResNet-18_mod with [2, 1, 1, 1] 
+    Batch size: 32
+    learning rate: 0.01    
+    TrainingAccuracy: ~90
+    TestingAccuracy: ~88
+    Epochs: 50
 
 Attempt 4:
-    ResNet-18_mod with [2, 1, 1, 1] + adding two extra linear layers
+    ResNet-18_mod with [2, 1, 1, 1]
+    Batch size: 64
+    learning rate: 0.05
     TrainingAccuracy: ~86
     TestingAccuracy: ~81
-    Epochs: 15
+    Epochs: 50
 
 Attempt 5:
-    ResNet-18_mod with [2, 1, 1, 1] + adding two extra linear layers
+    ResNet-18_mod with [2, 1, 1, 1]
+    Batch size: 32
+    learning rate: 0.001
     TrainingAccuracy: ~88
     TestingAccuracy: ~84
-    Epochs: 25
+    Epochs: 50
+
+Attempt 6:
+    ResNet-18_mod with [2, 1, 1, 1]
+    Batch size: 32
+    learning rate: 0.001
+    lr sched: true
+    TrainingAccuracy: ~88
+    TestingAccuracy: ~84
+    Epochs: 50
+
+Attempt 7:
+    ResNet-18_mod with [2, 1, 1, 1]
+    Batch size: 32
+    learning rate: 0.01
+    lr sched: true
+    TrainingAccuracy: ~96
+    TestingAccuracy: ~90
+    Epochs: 50
+
+Attempt 8:
+    ResNet-18_mod with [2, 1, 1, 1]
+    Batch size: 32
+    learning rate: 0.05
+    lr sched: true
+    TrainingAccuracy: ~95
+    TestingAccuracy: ~90
+    Epochs: 50
+
+Attempt 9:
+    ResNet-18_mod with [2, 1, 1, 1]
+    Batch size: 32
+    learning rate: 0.001
+    max learning rate: 0.01
+    max MOMENTUM = 0.9
+    min MOMENTUM = 0.8
+    lr sched: true
+    TrainingAccuracy: ~100
+    TestingAccuracy: ~93
+    Epochs: 50
+
+Attempt 10:
+    ResNet-18_mod with [2, 1, 1, 1]
+    Batch size: 32
+    learning rate: 0.01
+    cycle_momentum = true
+    max learning rate: 0.01
+    max MOMENTUM = 0.9
+    min MOMENTUM = 0.85
+    lr sched: true
+    TrainingAccuracy: ~99   
+    TestingAccuracy: ~94
+    Epochs: 60
+
+Attempt 11:
+    ResNet-18_mod with [2, 1, 1, 1]
+    Batch size: 32
+    learning rate: 0.03
+    cycle_momentum = false
+    max learning rate: 0.03
+    max MOMENTUM = 0.9
+    min MOMENTUM = 0.85
+    lr sched: true
+    TrainingAccuracy: ~99   
+    TestingAccuracy: ~94
+    Epochs: 60
+
+Attempt 12:
+    ResNet-18_mod with [2, 1, 1, 1]
+    optimizer = adam
+    Batch size: 32
+    max learning rate: 0.001
+    WEIGHT_DECAY = 1e-4
+    lr sched: true
+    TrainingAccuracy: ~99   
+    TestingAccuracy: ~93
+    Epochs: 60
+
+Attempt 13:
+    ResNet-18_mod with [2, 1, 1, 1]
+    optimizer = sgd
+    Batch size: 32
+    max learning rate: 0.01
+    WEIGHT_DECAY = 5e-4
+    lr sched: true
+    TrainingAccuracy: ~100   
+    TestingAccuracy: ~94
+    Epochs: 70
+
+Attempt 14:
+    ResNet-18_mod with [2, 1, 1, 1]
+    optimizer = sgd
+    Batch size: 32
+    max learning rate: 0.02
+    WEIGHT_DECAY = 5e-4
+    lr sched: true
+    TrainingAccuracy: ~100   
+    TestingAccuracy: ~94
+    Epochs: 70
+
+Attempt 15:
+    ResNet-18_mod with [2, 1, 1, 1]
+    optimizer = sgd
+    Batch size: 32
+    max learning rate: 0.01
+    WEIGHT_DECAY = 5e-4
+    lr sched: true
+    TrainingAccuracy: ~100   
+    TestingAccuracy: ~95
+    Epochs: 100
+
+Attempt 15:
+    ResNet-18_mod with [2, 1, 1, 1]
+    optimizer = sgd
+    exponential delay
+    Batch size: 32
+    max learning rate: 0.01
+    WEIGHT_DECAY = 5e-4
+    lr sched: true
+    TrainingAccuracy: ~100   
+    TestingAccuracy: ~95
+    Epochs: 50
